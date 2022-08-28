@@ -3,22 +3,21 @@
 import time
 from datetime import datetime as dt
 #Windows host file path
-hostsPath=&quot;C://Windows//System32//drivers//etc//hosts&quot;
-redirect=&quot;127.0.0.1&quot;
+hostsPath="C://Windows//System32//drivers//etc//hosts"
+redirect="127.0.0.1"
 #Add the website you want to block, in this list
-#websites=[&quot;www.youtube.com&quot;,&quot;www.facebook.com&quot;]
 websites=[]
-n=int(input(&#39;enter the no of websites&#39;))
+n=int(input('enter the no of websites'))
 for x in range(n):
-websites.append(input(&#39;enter the websites &#39;))
-websites.append(&#39; &#39;)
-s=input(&#39;enter the time starts&#39;)
-s=s.split(sep=&#39;:&#39;)
+websites.append(input('enter the websites '))
+websites.append(' ')
+s=input('enter the time starts')
+s=s.split(sep':')
 h=int(s[0])
 m=int(s[1])
 
-e=input(&#39;enter the end time&#39;)
-e=e.split(sep=&#39;:&#39;)
+e=input('enter the end time')
+e=e.split(sep=':')
 h1=int(e[0])
 m1=int(e[1])
 while True:
