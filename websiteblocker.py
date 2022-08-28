@@ -1,27 +1,45 @@
-from tkinter import *
-root = Tk()
-root.geometry('500x300')
-root.resizable(0,0)
-root.title("Website Blocker")
-Label(root, text ='WEBSITE BLOCKER' , font ='arial 20 bold').pack()
-host_path ='C:\Windows\System32\drivers\etc\hosts'
-ip_address = '127.0.0.1'
-Label(root, text ='Enter Website :' , font ='arial 13 bold').place(x=5 ,y=60)
-Websites = Text(root,font = 'arial 10',height='2', width = '40', wrap = WORD, padx=5, pady=5)
-Websites.place(x= 140,y = 60)
-def Blocker():
-    website_lists = Websites.get(1.0,END)
-    Website = list(website_lists.split(","))
-    with open (host_path , 'r+') as host_file:
-        file_content = host_file.read()
-        for website in Website:
-            if website in file_content:
-                Label(root, text = 'Already Blocked' , font = 'arial 12 bold').place(x=200,y=200)
-                pass
-            else:
-                host_file.write(ip_address + " " + website + '\n')
-                Label(root, text = "Blocked", font = 'arial 12 bold').place(x=230,y =200)
+#change security settings of hosts before execution
+#Import libraries
+import time
+from datetime import datetime as dt
+#Windows host file path
+hostsPath=&quot;C://Windows//System32//drivers//etc//hosts&quot;
+redirect=&quot;127.0.0.1&quot;
+#Add the website you want to block, in this list
+#websites=[&quot;www.youtube.com&quot;,&quot;www.facebook.com&quot;]
+websites=[]
+n=int(input(&#39;enter the no of websites&#39;))
+for x in range(n):
+websites.append(input(&#39;enter the websites &#39;))
+websites.append(&#39; &#39;)
+s=input(&#39;enter the time starts&#39;)
+s=s.split(sep=&#39;:&#39;)
+h=int(s[0])
+m=int(s[1])
 
-unblock = Button(root, text = 'Block',font = 'arial 12 bold',pady = 5,command = Blocker ,width = 6, bg = 'royal blue1', activebackground = 'sky blue')
-unblock.place(x = 230, y = 150)
-root.mainloop()
+e=input(&#39;enter the end time&#39;)
+e=e.split(sep=&#39;:&#39;)
+h1=int(e[0])
+m1=int(e[1])
+while True:
+#Duration during which, website blocker will work
+    if dt(dt.now().year,dt.now().month,dt.now().day,h,m) < dt.now() < dt(dt.now().year,dt.now().month,dt.now().day,h1,m1):
+        print ("Sorry Not Allowed...")
+        with open(hostsPath,'r+') as file:
+            content = file.read()
+            for site in websites:
+                if site in content:
+                    pass
+                else:
+                    file.write(redirect+" "+site+"\n")
+        break
+    else:
+        with open(hostsPath,'r+') as file:
+            content = file.readlines()
+            file.seek(0)
+                for line in content:
+                    if not any(site in line for site in websites):
+                        file.write(line)
+            file.truncate()
+        print ("Allowed access!")
+    break
